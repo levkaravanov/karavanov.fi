@@ -9,6 +9,10 @@
 
 Personal developer landing page and portfolio built around a chronological timeline. Instead of splitting the story into separate experience and project sections, the site presents education, practice, projects, tools, and milestones as one continuous path.
 
+Live site: [karavanov.fi](https://karavanov.fi/)
+
+![Lev Karavanov portfolio homepage](public/media/readme/homepage-en.png)
+
 ## Stack
 
 - Next.js App Router
@@ -97,4 +101,6 @@ This project is intended to be safe to inspect as a portfolio codebase. Before p
 
 ## License
 
-No license has been selected yet.
+No open-source license is currently provided. All rights reserved.
+
+The code is published as part of a personal portfolio repository, but the personal text, photos, videos, screenshots, brand assets, and project media are not licensed for reuse. If the source code is later opened for reuse, it should use a separate code license and explicitly exclude personal content and media.

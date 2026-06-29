@@ -29,6 +29,7 @@ coverage/
 # Tool caches
 .eslintcache
 .turbo/
+.firebase/
 
 # macOS
 .DS_Store

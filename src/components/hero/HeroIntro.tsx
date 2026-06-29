@@ -40,22 +40,22 @@ export function HeroIntro({ locale }: HeroIntroProps) {
             <SocialLinks className="hero-social-rail" />
             <SiteControls locale={locale} />
           </div>
-          <div className="hero-portrait-frame">
-            <Image
-              src="/media/profile/lev-karavanov-portrait.jpg"
-              alt={copy.portraitAlt}
-              width={900}
-              height={900}
-              priority
-              sizes="(min-width: 768px) 7.5rem, 30vw"
-              className="hero-portrait-image"
-            />
-          </div>
         </div>
       </div>
 
       <div className="hero-copy">
         <p className="hero-role text-balance text-2xl font-semibold leading-tight text-text md:text-3xl">{copy.role}</p>
+        <div className="hero-copy-portrait-frame">
+          <Image
+            src="/media/profile/lev-karavanov-portrait.jpg"
+            alt={copy.portraitAlt}
+            width={900}
+            height={900}
+            priority
+            sizes="(min-width: 768px) 7.75rem, 38vw"
+            className="hero-portrait-image"
+          />
+        </div>
         <p className="mt-5 text-base leading-7 text-text-soft md:text-lg md:leading-8">{copy.intro}</p>
         <p className="mt-4 text-base leading-7 text-text-muted">{copy.availability}</p>
       </div>

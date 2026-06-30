@@ -22,7 +22,6 @@ type PreviewImage = {
 };
 
 const dailyHeroAppStoreUrl = "https://apps.apple.com/app/dailyhero/id6749899614";
-const dailyHeroWebsiteUrl = "https://dailyhero.ink/";
 
 const dailyHeroBadgeByLocale: Record<Locale, { alt: string; src: string }> = {
   en: {
@@ -39,7 +38,20 @@ const dailyHeroBadgeByLocale: Record<Locale, { alt: string; src: string }> = {
   },
 };
 
-const dailyHeroWebsiteHeadingId = "dailyhero-website";
+const headingLinks: Record<string, Record<string, { href: string; label: string }>> = {
+  "2026-current-focus": {
+    "karavanov-repository": {
+      href: "https://github.com/levkaravanov/karavanov.fi",
+      label: "levkaravanov/karavanov.fi",
+    },
+  },
+  "2026-dailyhero": {
+    "dailyhero-website": {
+      href: "https://dailyhero.ink/",
+      label: "dailyhero.ink",
+    },
+  },
+};
 
 export function Timeline({ entries, locale }: TimelineProps) {
   const copy = dictionary[locale];
@@ -262,9 +274,9 @@ export function Timeline({ entries, locale }: TimelineProps) {
                               block.type === "heading" ? (
                                 <div className="timeline-entry-heading-group" key={`${entry.slug}-heading-${blockIndex}`}>
                                   <h3 className="timeline-entry-subheading">{block.text}</h3>
-                                  {entry.slug === "2026-dailyhero" && block.id === dailyHeroWebsiteHeadingId ? (
-                                    <a className="timeline-entry-heading-link" href={dailyHeroWebsiteUrl} rel="noreferrer" target="_blank">
-                                      <span>dailyhero.ink</span>
+                                  {block.id && headingLinks[entry.slug]?.[block.id] ? (
+                                    <a className="timeline-entry-heading-link" href={headingLinks[entry.slug][block.id].href} rel="noreferrer" target="_blank">
+                                      <span>{headingLinks[entry.slug][block.id].label}</span>
                                       <svg aria-hidden="true" className="timeline-entry-heading-link-icon" fill="none" stroke="currentColor" viewBox="0 0 16 16">
                                         <path d="M6 4.5H4.75A2.25 2.25 0 0 0 2.5 6.75v4.5a2.25 2.25 0 0 0 2.25 2.25h4.5a2.25 2.25 0 0 0 2.25-2.25V10" />
                                         <path d="M9 2.5h4.5V7" />

@@ -7,7 +7,7 @@ type ProfileCopy = {
   portraitAlt: string;
 };
 
-export type ProfileLinkKind = "github" | "linkedin" | "threads" | "email";
+export type ProfileLinkKind = "github" | "linkedin" | "threads" | "instagram" | "email";
 
 export type ProfileLink = {
   label: string;
@@ -22,6 +22,7 @@ export const profile = {
     { label: "GitHub", href: "https://github.com/levkaravanov", kind: "github" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/levkaravanov", kind: "linkedin" },
     { label: "Threads", href: "https://www.threads.com/@karavanov_lev", kind: "threads" },
+    { label: "Instagram", href: "https://www.instagram.com/karavanov_lev", kind: "instagram" },
     { label: "Email", href: "mailto:lev@karavanov.fi", kind: "email" },
   ] satisfies ProfileLink[],
   copy: {

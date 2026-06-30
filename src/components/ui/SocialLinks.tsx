@@ -4,6 +4,7 @@ const socialIconPaths = {
   github: "/icons/social/github.svg",
   linkedin: "/icons/social/linkedin.svg",
   threads: "/icons/social/threads.svg",
+  instagram: "/icons/social/instagram.svg",
   email: "/icons/social/mail.svg",
 } satisfies Record<ProfileLinkKind, string>;
 

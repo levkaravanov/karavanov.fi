@@ -603,13 +603,20 @@ Effects:
 
 ## 15. Analytics And Privacy
 
-Analytics are not required for MVP.
+Analytics are optional, but the site should be ready for privacy-friendly production analytics.
 
-If added later:
+Current decision:
 
-- Prefer privacy-friendly analytics.
-- Avoid cookies if possible.
-- Track only high-level events: `project_opened`, `contact_clicked`, `external_link_clicked`.
+- Use a privacy-aware analytics provider.
+- Prefer a cookieless setup to avoid adding a cookie banner.
+- Load analytics only in production and only when the provider token/config is present.
+- Document the provider, sitemap, Search Console, Bing Webmaster Tools, and cookie/consent decision in the repository.
+
+Initial implementation:
+
+- Cloudflare Web Analytics can be enabled with `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN`.
+- The integration should not load in local development by default.
+- If the analytics provider or settings start storing cookies or collecting personal data, add a visible cookie/consent flow before deployment.
 
 ## 16. Deployment
 

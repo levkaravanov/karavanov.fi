@@ -28,6 +28,8 @@ Live site: [karavanov.fi](https://karavanov.fi/)
 - Direct links to timeline entries through `?entry=...`
 - Light, dark, and system theme modes
 - Language routes: `/en`, `/fi`, `/ru`
+- SEO metadata, `robots.txt`, `sitemap.xml`, Open Graph, and JSON-LD
+- Optional privacy-aware production analytics through Cloudflare Web Analytics
 - Local reusable design tokens
 - Mobile-first responsive layout
 - Local social icons and fonts
@@ -54,6 +56,20 @@ pnpm dev
 ```
 
 Open [http://127.0.0.1:3000](http://127.0.0.1:3000).
+
+## Environment
+
+Copy `.env.example` if production analytics should be enabled:
+
+```bash
+cp .env.example .env.local
+```
+
+```txt
+NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN=
+```
+
+The analytics token is public by design. It is only used in production builds and should be left empty for local development unless analytics testing is intentional.
 
 ## Useful Scripts
 
@@ -88,6 +104,37 @@ To add a new timeline entry:
 1. Add metadata in `src/data/timeline.ts`.
 2. Add localized Markdown files under `content/timeline/<entry-slug>/`.
 3. Keep the slug stable once published.
+
+## SEO And Analytics
+
+Live URLs:
+
+- Site: [https://karavanov.fi](https://karavanov.fi)
+- Sitemap: [https://karavanov.fi/sitemap.xml](https://karavanov.fi/sitemap.xml)
+- Robots: [https://karavanov.fi/robots.txt](https://karavanov.fi/robots.txt)
+
+The site currently ships:
+
+- localized routes for English, Finnish, and Russian
+- server-rendered `<html lang="...">`
+- localized title and description metadata
+- canonical URLs and language alternates
+- Open Graph and Twitter preview metadata
+- `robots.txt`
+- `sitemap.xml` with stable `lastmod` values and language alternates
+- JSON-LD for the website, profile page, and person
+
+Operational setup to keep outside the repo:
+
+1. Verify `karavanov.fi` in Google Search Console with a DNS TXT record.
+2. Submit `https://karavanov.fi/sitemap.xml`.
+3. Submit or import the site in Bing Webmaster Tools.
+4. Validate social previews after every major visual/metadata change.
+5. Review Search Console and analytics data after the first 7-14 days.
+
+Analytics is implemented as an optional Cloudflare Web Analytics integration. The code loads it only when `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` is present in a production build.
+
+Cookie/consent decision: the intended analytics setup is privacy-friendly and should avoid cookies. If the analytics provider or settings are changed to something that stores cookies or collects personal data, add a visible cookie/consent flow and update this section before deploying.
 
 ## Public Repository Notes
 

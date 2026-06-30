@@ -30,6 +30,7 @@ coverage/
 .eslintcache
 .turbo/
 .firebase/
+tsconfig.tsbuildinfo
 
 # macOS
 .DS_Store

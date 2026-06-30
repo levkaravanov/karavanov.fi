@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
+import { CloudflareAnalytics } from "@/components/analytics/CloudflareAnalytics";
 import { locales, type Locale } from "@/data/locales";
 import { profile } from "@/data/profile";
 import { normalizeLocale } from "@/lib/i18n/routing";
-import { absoluteUrl, localeMetadata, openGraphImage, siteName, siteUrl } from "@/lib/site/seo";
+import { absoluteUrl, languageAlternates, localeMetadata, openGraphImage, siteName, siteUrl } from "@/lib/site/seo";
 import "@/styles/global.css";
 
 type LocaleLayoutProps = {
@@ -45,12 +46,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     ],
     alternates: {
       canonical: path,
-      languages: {
-        en: "/en",
-        fi: "/fi",
-        ru: "/ru",
-        "x-default": "/en",
-      },
+      languages: languageAlternates,
     },
     openGraph: {
       title: metadata.title,
@@ -86,11 +82,14 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   const { locale: rawLocale } = await params;
   if (!locales.includes(rawLocale as Locale)) notFound();
   const locale = rawLocale as Locale;
+  const cloudflareAnalyticsToken =
+    process.env.NODE_ENV === "production" ? process.env.NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN : undefined;
 
   return (
     <html lang={locale} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body>
         {children}
+        <CloudflareAnalytics token={cloudflareAnalyticsToken} />
       </body>
     </html>
   );

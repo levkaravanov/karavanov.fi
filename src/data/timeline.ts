@@ -22,6 +22,13 @@ export type TimelineMeta = {
 
 export const timelineMeta = [
   {
+    slug: "2026-current-moment",
+    year: 2026,
+    kind: "education",
+    tags: ["Metropolia", "140/240 credits", "Site update"],
+    featured: true,
+  },
+  {
     slug: "2026-current-focus",
     year: 2026,
     kind: "project",

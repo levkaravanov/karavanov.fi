@@ -494,11 +494,16 @@ a {
   border-radius: inherit;
 }
 
+.timeline-entry-summary {
+  position: relative;
+  padding: 1rem;
+}
+
 .timeline-entry-close-button {
   position: absolute;
   top: 0.7rem;
   right: 0.7rem;
-  z-index: 2;
+  z-index: 20;
   display: inline-flex;
   width: 2.15rem;
   height: 2.15rem;
@@ -827,7 +832,7 @@ a {
     margin-left: calc((var(--timeline-date-width) + 0.45rem) * -1);
   }
 
-  .timeline-entry-card-expanded .timeline-entry-trigger {
+  .timeline-entry-card-expanded .timeline-entry-summary {
     padding-right: 3.25rem;
   }
 

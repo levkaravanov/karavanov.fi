@@ -179,6 +179,7 @@ export function Timeline({ entries, locale }: TimelineProps) {
 
   return (
     <section id="timeline" className="mx-auto w-[min(1120px,calc(100%_-_32px))] pb-12 pt-3 md:pb-20 md:pt-3" aria-label={copy.sections.timeline}>
+      <h2 className="sr-only">{copy.sections.timeline}</h2>
       <div className="mb-8 overflow-x-auto pb-2">
         <div className="timeline-segmented-control backdrop-blur-xl backdrop-saturate-150" aria-label={copy.accessibility.timelineFilters}>
           {filters.map((item) => (
@@ -202,6 +203,8 @@ export function Timeline({ entries, locale }: TimelineProps) {
             const repeatsPreviousYear = visibleEntries[index - 1]?.year === entry.year;
             const timelineDateLabel = repeatsPreviousYear ? "" : entry.year;
             const panelId = `${entry.slug}-details`;
+            const titleId = `${entry.slug}-title`;
+            const summaryId = `${entry.slug}-summary`;
             return (
               <li className={`timeline-item ${repeatsPreviousYear ? "timeline-item-repeat" : ""}`} id={entry.slug} key={entry.slug}>
                 {!repeatsPreviousYear ? <span className={`timeline-dot ${expanded ? "timeline-dot-active" : ""}`} /> : null}
@@ -226,19 +229,26 @@ export function Timeline({ entries, locale }: TimelineProps) {
                         </svg>
                       </button>
                     ) : null}
-                    <button
-                      className="timeline-entry-trigger w-full p-4 text-left focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent"
-                      type="button"
-                      aria-expanded={expanded}
-                      aria-controls={panelId}
-                      onClick={() => openEntry(entry.slug)}
-                    >
-                      <span className="block text-xl font-bold text-text">{entry.title}</span>
-                      <span className="mt-2 block leading-7 text-text-soft">{entry.summary}</span>
+                    <div className="timeline-entry-summary">
+                      <button
+                        className="timeline-entry-trigger absolute inset-0 z-10 w-full rounded-lg text-left focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent"
+                        type="button"
+                        aria-expanded={expanded}
+                        aria-controls={panelId}
+                        aria-labelledby={titleId}
+                        aria-describedby={summaryId}
+                        onClick={() => openEntry(entry.slug)}
+                      />
+                      <h3 className="block text-xl font-bold text-text" id={titleId}>
+                        {entry.title}
+                      </h3>
+                      <span className="mt-2 block leading-7 text-text-soft" id={summaryId}>
+                        {entry.summary}
+                      </span>
                       <span className="mt-4 block">
                         <TagList ariaLabel={copy.accessibility.tags} tags={entry.tags} />
                       </span>
-                    </button>
+                    </div>
                     <div className={`timeline-entry-details-shell ${expanded ? "timeline-entry-details-shell-open" : ""}`} id={panelId} aria-hidden={!expanded}>
                       <div className="timeline-entry-details-inner">
                         {expanded ? (
@@ -273,7 +283,7 @@ export function Timeline({ entries, locale }: TimelineProps) {
                             {entry.body.map((block, blockIndex) =>
                               block.type === "heading" ? (
                                 <div className="timeline-entry-heading-group" key={`${entry.slug}-heading-${blockIndex}`}>
-                                  <h3 className="timeline-entry-subheading">{block.text}</h3>
+                                  <h4 className="timeline-entry-subheading">{block.text}</h4>
                                   {block.id && headingLinks[entry.slug]?.[block.id] ? (
                                     <a className="timeline-entry-heading-link" href={headingLinks[entry.slug][block.id].href} rel="noreferrer" target="_blank">
                                       <span>{headingLinks[entry.slug][block.id].label}</span>

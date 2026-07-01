@@ -44,7 +44,7 @@ export function HeroIntro({ locale }: HeroIntroProps) {
       </div>
 
       <div className="hero-copy">
-        <p className="hero-role text-balance text-2xl font-semibold leading-tight text-text md:text-3xl">{copy.role}</p>
+        <h2 className="hero-role text-balance text-2xl font-semibold leading-tight text-text md:text-3xl">{copy.role}</h2>
         <div className="hero-copy-portrait-frame">
           <Image
             src="/media/profile/lev-karavanov-portrait.jpg"

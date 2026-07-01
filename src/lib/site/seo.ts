@@ -18,19 +18,19 @@ export const openGraphImage = {
 
 export const localeMetadata = {
   en: {
-    title: "Lev Karavanov - Software Engineer",
+    title: "Lev Karavanov - Software Engineer & Mobile Developer in Finland",
     description:
-      "Personal portfolio of Lev Karavanov, a software engineering student in Finland focused on mobile development, AI-assisted workflows, and product projects.",
+      "Portfolio of Lev Karavanov: software engineering studies at Metropolia, mobile development, SwiftUI, Flutter, Firebase, DailyHero, and AI-assisted workflows.",
   },
   fi: {
-    title: "Lev Karavanov - Software Engineer",
+    title: "Lev Karavanov - Ohjelmistokehittäjä Espoossa",
     description:
-      "Lev Karavanovin henkilökohtainen portfolio: ohjelmistotekniikan opiskelua Suomessa, mobiilikehitystä, AI-avusteista työskentelyä ja omia projekteja.",
+      "Lev Karavanovin portfolio: ohjelmistotekniikan opinnot Metropoliassa, mobiilikehitys, SwiftUI, Flutter, Firebase, DailyHero ja AI-avusteinen työskentely.",
   },
   ru: {
-    title: "Лев Караванов - Software Engineer",
+    title: "Лев Караванов - Software Engineer и mobile developer в Финляндии",
     description:
-      "Личный сайт Льва Караванова: путь в разработку, учёба в Финляндии, мобильная разработка, AI-assisted workflow и собственные проекты.",
+      "Личный сайт Льва Караванова: обучение software engineering в Metropolia, мобильная разработка, SwiftUI, Flutter, Firebase, DailyHero и AI-assisted workflow.",
   },
 } satisfies Record<Locale, { title: string; description: string }>;
 

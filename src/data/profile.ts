@@ -34,10 +34,10 @@ export const profile = {
       portraitAlt: "Lev Karavanov portrait",
     },
     fi: {
-      role: "Software Engineer",
+      role: "Software Engineer / ohjelmistokehittäjä",
       intro:
-        "Olen Lev Karavanov. Asun Espoossa ja opiskelen software engineering -alaa Metropolia Ammattikorkeakoulussa, painopisteenä mobiilikehitys.",
-      availability: "Tämä sivusto kertoo henkilökohtaisesta polustani ammattiin: mitä opiskelen, millaisia projekteja rakennan, mitä työkaluja käytän ja miten kerään vähitellen kokemusta ohjelmistokehityksestä.",
+        "Olen Lev Karavanov. Asun Espoossa ja opiskelen ohjelmistotekniikkaa Metropolia Ammattikorkeakoulussa, painopisteenä mobiilikehitys.",
+      availability: "Tämä sivusto kertoo henkilökohtaisesta polustani ohjelmistokehittäjäksi: mitä opiskelen, millaisia projekteja rakennan, mitä työkaluja käytän ja miten kerään vähitellen kokemusta ohjelmistokehityksestä.",
       portraitAlt: "Lev Karavanovin muotokuva",
     },
     ru: {

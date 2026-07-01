@@ -17,8 +17,14 @@ function isExternalLink(href: string) {
   return href.startsWith("http://") || href.startsWith("https://");
 }
 
+function isProfileLink(kind: ProfileLinkKind) {
+  return kind !== "email";
+}
+
 function SocialIconLink({ link, iconClassName = "" }: { link: ProfileLink; iconClassName?: string }) {
   const iconPath = socialIconPaths[link.kind];
+  const external = isExternalLink(link.href);
+  const rel = external ? (isProfileLink(link.kind) ? "me noreferrer" : "noreferrer") : undefined;
 
   return (
     <a
@@ -26,7 +32,7 @@ function SocialIconLink({ link, iconClassName = "" }: { link: ProfileLink; iconC
       href={link.href}
       aria-label={link.label}
       title={link.label}
-      {...(isExternalLink(link.href) ? { target: "_blank", rel: "noreferrer" } : {})}
+      {...(external ? { target: "_blank", rel } : {})}
     >
       <span
         className="social-icon-mask h-6 w-6"
@@ -36,6 +42,7 @@ function SocialIconLink({ link, iconClassName = "" }: { link: ProfileLink; iconC
         }}
         aria-hidden="true"
       />
+      <span className="sr-only">{link.label}</span>
     </a>
   );
 }

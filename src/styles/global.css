@@ -132,21 +132,15 @@ a {
 
 .hero-name {
   position: relative;
-  display: flex;
+  display: block;
   max-width: 100%;
-  flex-wrap: wrap;
-  column-gap: 0.32em;
-  row-gap: 0.08em;
   color: var(--text);
   font-family: var(--font-logo);
   font-size: clamp(2.1rem, 4.7vw, 3.45rem);
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1;
-}
-
-.hero-name-word {
-  display: inline-flex;
+  white-space: nowrap;
 }
 
 .hero-copy {
@@ -238,17 +232,6 @@ a {
   .hero-social-rail {
     flex-direction: row;
   }
-}
-
-.logo-letter {
-  color: var(--text);
-  transition: color 520ms ease-out;
-}
-
-.logo-letter:hover {
-  color: var(--accent);
-  transition-duration: 95ms;
-  transition-timing-function: ease-out;
 }
 
 .social-icon-link {

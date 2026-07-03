@@ -10,10 +10,10 @@ export const siteLastModified = "2026-06-30";
 export const profileImage = "/media/profile/lev-karavanov-portrait.jpg";
 
 export const openGraphImage = {
-  url: "/media/social/karavanov-fi-og.png",
+  url: "/media/social/karavanov-fi-og-v2.png",
   width: 1200,
   height: 630,
-  alt: "Lev Karavanov personal developer timeline portfolio",
+  alt: "Lev Karavanov personal portfolio social preview",
 };
 
 export const localeMetadata = {

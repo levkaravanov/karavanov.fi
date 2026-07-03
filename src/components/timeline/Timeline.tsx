@@ -39,6 +39,12 @@ const dailyHeroBadgeByLocale: Record<Locale, { alt: string; src: string }> = {
 };
 
 const headingLinks: Record<string, Record<string, { href: string; label: string }>> = {
+  "2026-naistaxi-frontend": {
+    "naistaxi-website": {
+      href: "https://naistaxi.fi/en/",
+      label: "naistaxi.fi",
+    },
+  },
   "2026-current-focus": {
     "karavanov-repository": {
       href: "https://github.com/levkaravanov/karavanov.fi",
@@ -50,6 +56,14 @@ const headingLinks: Record<string, Record<string, { href: string; label: string 
       href: "https://dailyhero.ink/",
       label: "dailyhero.ink",
     },
+  },
+};
+
+const companyHeaderBySlug: Partial<Record<string, { alt: string; logoSrc: string; name: string }>> = {
+  "2026-naistaxi-frontend": {
+    alt: "Naistaxi",
+    logoSrc: "/media/naistaxi/logo.svg",
+    name: "Naistaxi",
   },
 };
 
@@ -205,6 +219,7 @@ export function Timeline({ entries, locale }: TimelineProps) {
             const panelId = `${entry.slug}-details`;
             const titleId = `${entry.slug}-title`;
             const summaryId = `${entry.slug}-summary`;
+            const companyHeader = companyHeaderBySlug[entry.slug];
             return (
               <li className={`timeline-item ${repeatsPreviousYear ? "timeline-item-repeat" : ""}`} id={entry.slug} key={entry.slug}>
                 {!repeatsPreviousYear ? <span className={`timeline-dot ${expanded ? "timeline-dot-active" : ""}`} /> : null}
@@ -253,6 +268,19 @@ export function Timeline({ entries, locale }: TimelineProps) {
                       <div className="timeline-entry-details-inner">
                         {expanded ? (
                           <div className="timeline-entry-details">
+                            {companyHeader ? (
+                              <div className="timeline-company-header">
+                                <Image
+                                  alt={companyHeader.alt}
+                                  className="timeline-company-logo"
+                                  height={80}
+                                  priority={expanded}
+                                  src={companyHeader.logoSrc}
+                                  width={80}
+                                />
+                                <span className="timeline-company-name">{companyHeader.name}</span>
+                              </div>
+                            ) : null}
                             {entry.slug === "2026-dailyhero" ? (
                               <div className="dailyhero-product-header">
                                 <Image

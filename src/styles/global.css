@@ -557,6 +557,26 @@ a {
   margin-top: 1rem;
 }
 
+.timeline-company-header {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+.timeline-company-logo {
+  width: clamp(2.6rem, 8vw, 3.8rem);
+  height: auto;
+  flex: 0 0 auto;
+}
+
+.timeline-company-name {
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
 .dailyhero-product-header {
   display: flex;
   align-items: center;

@@ -29,6 +29,13 @@ export const timelineMeta = [
     featured: true,
   },
   {
+    slug: "2026-naistaxi-frontend",
+    year: 2026,
+    kind: "practice",
+    tags: ["Naistaxi", "Part-time", "Front-end", "React Native", "TypeScript", "iOS", "Android", "Maps", "Verification"],
+    featured: true,
+  },
+  {
     slug: "2026-current-focus",
     year: 2026,
     kind: "project",

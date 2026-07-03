@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       card: "summary_large_image",
       title: metadata.title,
       description: copy.intro,
-      images: [openGraphImage.url],
+      images: [openGraphImage],
     },
     robots: {
       index: true,

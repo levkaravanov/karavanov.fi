@@ -5,7 +5,7 @@ export const siteUrl = "https://karavanov.fi";
 
 export const siteName = "Lev Karavanov";
 
-export const siteLastModified = "2026-06-30";
+export const siteLastModified = "2026-07-03";
 
 export const profileImage = "/media/profile/lev-karavanov-portrait.jpg";
 
@@ -14,6 +14,7 @@ export const openGraphImage = {
   width: 1200,
   height: 630,
   alt: "Lev Karavanov personal portfolio social preview",
+  type: "image/png",
 };
 
 export const localeMetadata = {

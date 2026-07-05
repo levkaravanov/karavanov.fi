@@ -71,6 +71,36 @@ NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN=
 
 The analytics token is public by design. It is only used in production builds and should be left empty for local development unless analytics testing is intentional.
 
+## Weekly Analytics Digest
+
+The repository includes a scheduled GitHub Actions workflow that can send a weekly Cloudflare Web Analytics summary to Slack:
+
+```txt
+.github/workflows/weekly-analytics-digest.yml
+scripts/weekly-analytics-digest.mjs
+```
+
+The workflow runs every Monday and can also be started manually from GitHub Actions.
+
+Required GitHub Secrets:
+
+```txt
+CLOUDFLARE_API_TOKEN
+SLACK_WEBHOOK_URL
+```
+
+Recommended GitHub Variables:
+
+```txt
+CLOUDFLARE_ACCOUNT_ID=3db3cb9751c0edeb89e8106f287d0a31
+CLOUDFLARE_WEB_ANALYTICS_HOSTNAME=karavanov.fi
+WEEKLY_ANALYTICS_LOOKBACK_DAYS=7
+```
+
+Slack setup uses an Incoming Webhook URL from the target Slack workspace and channel. It does not depend on the Slack connector connected to Codex.
+
+The Cloudflare API token should be scoped narrowly for analytics reads. If Cloudflare changes Web Analytics GraphQL fields, the workflow will send a diagnostic Slack message instead of failing silently.
+
 ## Useful Scripts
 
 ```bash

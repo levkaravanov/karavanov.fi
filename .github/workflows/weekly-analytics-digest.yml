@@ -1,0 +1,31 @@
+name: Weekly analytics digest
+
+on:
+  schedule:
+    # Mondays at 06:00 UTC. This is 09:00 in Finland during summer time and 08:00 during winter time.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  send-digest:
+    name: Send weekly Slack digest
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Send analytics digest
+        run: node scripts/weekly-analytics-digest.mjs
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID || '3db3cb9751c0edeb89e8106f287d0a31' }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_WEB_ANALYTICS_HOSTNAME: ${{ vars.CLOUDFLARE_WEB_ANALYTICS_HOSTNAME || 'karavanov.fi' }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          WEEKLY_ANALYTICS_LOOKBACK_DAYS: ${{ vars.WEEKLY_ANALYTICS_LOOKBACK_DAYS || '7' }}

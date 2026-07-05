@@ -19,7 +19,7 @@ export function CloudflareAnalytics({ token }: CloudflareAnalyticsProps) {
     script.setAttribute("data-cf-beacon", JSON.stringify({ token }));
     script.setAttribute("data-karavanov-analytics", "cloudflare");
 
-    document.head.appendChild(script);
+    document.body.appendChild(script);
   }, [token]);
 
   return null;

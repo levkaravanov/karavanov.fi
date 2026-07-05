@@ -3,6 +3,7 @@ import Image from "next/image";
 import { profile } from "@/data/profile";
 import { SiteControls } from "@/components/layout/SiteControls";
 import { SocialLinks } from "@/components/ui/SocialLinks";
+import { Fragment } from "react";
 
 type HeroIntroProps = {
   locale: Locale;
@@ -17,7 +18,20 @@ export function HeroIntro({ locale }: HeroIntroProps) {
     <section id="intro" className="hero-intro">
       <div className="hero-brand">
         <div className="pointer-events-none absolute -left-8 top-1/2 h-44 w-44 -translate-y-1/2 rounded-full bg-accent/18 blur-3xl" />
-        <h1 className="hero-name">{heroName}</h1>
+        <h1 className="hero-name" aria-label={heroName}>
+          {heroName.split(" ").map((word, wordIndex, words) => (
+            <Fragment key={word}>
+              <span aria-hidden="true" className="hero-name-word">
+                {Array.from(word).map((letter, index) => (
+                  <span className="logo-letter inline-block" key={`${word}-${letter}-${index}`}>
+                    {letter}
+                  </span>
+                ))}
+              </span>
+              {wordIndex < words.length - 1 ? " " : null}
+            </Fragment>
+          ))}
+        </h1>
         <div className="hero-media-row">
           <div className="hero-control-rail">
             <SocialLinks className="hero-social-rail" />

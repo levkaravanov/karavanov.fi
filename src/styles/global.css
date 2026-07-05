@@ -132,15 +132,21 @@ a {
 
 .hero-name {
   position: relative;
-  display: block;
+  display: flex;
   max-width: 100%;
+  flex-wrap: wrap;
+  column-gap: 0.32em;
+  row-gap: 0.08em;
   color: var(--text);
   font-family: var(--font-logo);
   font-size: clamp(2.1rem, 4.7vw, 3.45rem);
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1;
-  white-space: nowrap;
+}
+
+.hero-name-word {
+  display: inline-flex;
 }
 
 .hero-copy {
@@ -170,6 +176,17 @@ a {
   align-items: flex-start;
   gap: 0.35rem;
   padding-top: 0.1rem;
+}
+
+.logo-letter {
+  color: var(--text);
+  transition: color 520ms ease-out;
+}
+
+.logo-letter:hover {
+  color: var(--accent);
+  transition-duration: 95ms;
+  transition-timing-function: ease-out;
 }
 
 .hero-social-rail {
@@ -437,13 +454,16 @@ a {
   height: var(--timeline-dot);
   border: 2px solid var(--line);
   border-radius: 999px;
-  background: var(--bg);
-  box-shadow: 0 0 0 var(--timeline-gap) var(--bg);
+  background: transparent;
+  transition: border-color 180ms ease;
 }
 
 .timeline-dot-active {
   border-color: var(--accent);
-  background: var(--accent);
+}
+
+.timeline-item:has(.timeline-entry-card:hover) .timeline-dot {
+  border-color: var(--accent);
 }
 
 .timeline-entry-row {

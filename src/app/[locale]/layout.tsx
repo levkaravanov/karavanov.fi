@@ -5,7 +5,7 @@ import { CloudflareAnalytics } from "@/components/analytics/CloudflareAnalytics"
 import { locales, type Locale } from "@/data/locales";
 import { profile } from "@/data/profile";
 import { normalizeLocale } from "@/lib/i18n/routing";
-import { absoluteUrl, languageAlternates, localeMetadata, openGraphImage, siteName, siteUrl } from "@/lib/site/seo";
+import { absoluteUrl, canonicalPathForLocale, languageAlternates, localeMetadata, openGraphImage, siteName, siteUrl } from "@/lib/site/seo";
 import "@/styles/global.css";
 
 type LocaleLayoutProps = {
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const locale = normalizeLocale(rawLocale);
   const copy = profile.copy[locale];
   const metadata = localeMetadata[locale];
-  const path = `/${locale}`;
+  const path = canonicalPathForLocale(locale);
 
   return {
     metadataBase: new URL(siteUrl),

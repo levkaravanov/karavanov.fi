@@ -1,5 +1,6 @@
 import type { Locale } from "@/data/locales";
 import { locales } from "@/data/locales";
+import { profile } from "@/data/profile";
 
 export const siteUrl = "https://karavanov.fi";
 
@@ -36,10 +37,10 @@ export const localeMetadata = {
 } satisfies Record<Locale, { title: string; description: string }>;
 
 export const languageAlternates = {
-  en: "/en",
+  en: "/",
   fi: "/fi",
   ru: "/ru",
-  "x-default": "/en",
+  "x-default": "/",
 } satisfies Record<Locale | "x-default", string>;
 
 export const absoluteLanguageAlternates = Object.fromEntries(
@@ -56,4 +57,80 @@ export const siteLocaleCodes = locales;
 
 export function absoluteUrl(path: string) {
   return new URL(path, siteUrl).toString();
+}
+
+export function canonicalPathForLocale(locale: Locale) {
+  return locale === "en" ? "/" : `/${locale}`;
+}
+
+export function createProfileJsonLd(locale: Locale, currentPath: string) {
+  const metadata = localeMetadata[locale];
+  const personId = `${siteUrl}/#person`;
+  const websiteId = `${siteUrl}/#website`;
+  const profilePageId = `${absoluteUrl(currentPath)}#profile`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": websiteId,
+        url: `${siteUrl}/`,
+        name: siteName,
+        alternateName: "karavanov.fi",
+        inLanguage: siteLocaleCodes,
+        author: { "@id": personId },
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": profilePageId,
+        url: absoluteUrl(currentPath),
+        name: metadata.title,
+        description: metadata.description,
+        inLanguage: locale,
+        isPartOf: { "@id": websiteId },
+        mainEntity: { "@id": personId },
+      },
+      {
+        "@type": "Person",
+        "@id": personId,
+        name: profile.name,
+        url: siteUrl,
+        image: absoluteUrl(profileImage),
+        email: profile.email,
+        jobTitle: "Software Engineer",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Espoo",
+          addressCountry: "FI",
+        },
+        sameAs: profile.links.filter((link) => link.kind !== "email").map((link) => link.href),
+        knowsLanguage: Object.values(siteLanguages).map((language) => ({
+          "@type": "Language",
+          name: language.name,
+          alternateName: language.alternateName,
+        })),
+        knowsAbout: [
+          "Software Engineering",
+          "Mobile Development",
+          "SwiftUI",
+          "Flutter",
+          "Firebase",
+          "AI-assisted development",
+          "MCP",
+        ],
+        affiliation: {
+          "@type": "EducationalOrganization",
+          name: "Metropolia University of Applied Sciences",
+          url: "https://www.metropolia.fi/en",
+        },
+        alumniOf: {
+          "@type": "EducationalOrganization",
+          name: "Omnia",
+          url: "https://www.omnia.fi/en",
+        },
+        mainEntityOfPage: { "@id": profilePageId },
+      },
+    ],
+  };
 }

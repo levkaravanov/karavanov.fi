@@ -1,27 +1,19 @@
-"use client";
-
-import { useEffect } from "react";
+import Script from "next/script";
 
 type CloudflareAnalyticsProps = {
   token?: string;
 };
 
-const analyticsScriptId = "cloudflare-web-analytics";
-
 export function CloudflareAnalytics({ token }: CloudflareAnalyticsProps) {
-  useEffect(() => {
-    if (!token) return;
-    if (document.getElementById(analyticsScriptId)) return;
+  if (!token) return null;
 
-    const script = document.createElement("script");
-    script.id = analyticsScriptId;
-    script.defer = true;
-    script.src = "https://static.cloudflareinsights.com/beacon.min.js";
-    script.dataset.cfBeacon = JSON.stringify({ token });
-    script.dataset.karavanovAnalytics = "cloudflare";
-
-    document.body.appendChild(script);
-  }, [token]);
-
-  return null;
+  return (
+    <Script
+      id="cloudflare-web-analytics"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      strategy="afterInteractive"
+      data-cf-beacon={JSON.stringify({ token })}
+      data-karavanov-analytics="cloudflare"
+    />
+  );
 }

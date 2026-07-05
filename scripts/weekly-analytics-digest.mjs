@@ -68,33 +68,47 @@ function formatDate(date) {
 }
 
 async function findWebAnalyticsSite() {
-  const response = await cloudflareRest(`/accounts/${env.accountId}/rum/site_info/list`);
-  const sites = Array.isArray(response.result) ? response.result : [];
-  const site = sites.find((candidate) => {
-    const values = [
-      candidate.host,
-      candidate.hostname,
-      candidate.name,
-      candidate.site_name,
-      candidate.siteName,
-    ].filter(Boolean);
+  try {
+    const response = await cloudflareRest(`/accounts/${env.accountId}/rum/site_info/list`);
+    const sites = Array.isArray(response.result) ? response.result : [];
+    const site = sites.find((candidate) => {
+      const values = [
+        candidate.host,
+        candidate.hostname,
+        candidate.name,
+        candidate.site_name,
+        candidate.siteName,
+      ].filter(Boolean);
 
-    return values.some((value) => String(value).toLowerCase() === env.hostname.toLowerCase());
-  });
+      return values.some((value) => String(value).toLowerCase() === env.hostname.toLowerCase());
+    });
 
-  if (!site) {
-    const knownSites = sites
-      .map((candidate) => candidate.host || candidate.hostname || candidate.name || candidate.site_name)
-      .filter(Boolean)
-      .join(", ");
-    throw new Error(`Cloudflare Web Analytics site "${env.hostname}" was not found. Known sites: ${knownSites || "none"}`);
+    if (!site) {
+      const knownSites = sites
+        .map((candidate) => candidate.host || candidate.hostname || candidate.name || candidate.site_name)
+        .filter(Boolean)
+        .join(", ");
+      return {
+        id: undefined,
+        hostname: env.hostname,
+        siteTag: undefined,
+        lookupWarning: `Cloudflare Web Analytics site "${env.hostname}" was not found. Known sites: ${knownSites || "none"}`,
+      };
+    }
+
+    return {
+      id: site.site_id || site.id,
+      hostname: site.host || site.hostname || site.name || site.site_name || env.hostname,
+      siteTag: site.site_tag || site.siteTag || site.tag,
+    };
+  } catch (error) {
+    return {
+      id: undefined,
+      hostname: env.hostname,
+      siteTag: undefined,
+      lookupWarning: `Could not read Web Analytics site info via REST: ${error.message}`,
+    };
   }
-
-  return {
-    id: site.site_id || site.id,
-    hostname: site.host || site.hostname || site.name || site.site_name || env.hostname,
-    siteTag: site.site_tag || site.siteTag || site.tag,
-  };
 }
 
 async function loadAnalytics(period, site) {
@@ -226,6 +240,7 @@ function rowsToList(rows, dimensionName) {
 
 function formatSlackDigest(period, site, analytics) {
   const header = `:bar_chart: *Weekly analytics: ${escapeSlack(site.hostname)}*\n_${period.label} UTC_`;
+  const warning = site.lookupWarning ? `\n\n_Note: ${escapeSlack(site.lookupWarning)}_` : "";
 
   if (analytics.unavailable) {
     return [
@@ -233,13 +248,15 @@ function formatSlackDigest(period, site, analytics) {
       "",
       "Cloudflare Web Analytics site was found, but GraphQL metrics could not be read yet.",
       `Last error: \`${escapeSlack(analytics.error)}\``,
+      warning.trim(),
       "",
       "Check that `CLOUDFLARE_API_TOKEN` has Analytics Read access. If Cloudflare changed the Web Analytics GraphQL dataset, update `scripts/weekly-analytics-digest.mjs`.",
-    ].join("\n");
+    ].filter(Boolean).join("\n");
   }
 
   return [
     header,
+    warning.trim(),
     "",
     `*Events:* ${analytics.totalEvents}`,
     formatSection("Top pages", analytics.topPages),

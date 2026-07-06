@@ -138,12 +138,12 @@ scripts/weekly-hosting-logs-digest.mjs
 Required external setup:
 
 1. Firebase Console -> Hosting -> Usage -> Cloud Logging: export logs for Hosting site `karavanovfi`.
-2. Google Cloud service account with `roles/logging.viewer` on project `karavanovfi`.
+2. Google Cloud service account with `roles/logging.viewer` on Google Cloud project `karavanovfi-501610`.
 3. GitHub Secrets:
    - `GOOGLE_SERVICE_ACCOUNT_JSON` or `GOOGLE_SERVICE_ACCOUNT_JSON_BASE64`
    - `SLACK_WEBHOOK_URL`
 4. Optional GitHub Variables:
-   - `GCP_PROJECT_ID=karavanovfi`
+   - `GCP_PROJECT_ID=karavanovfi-501610`
    - `FIREBASE_HOSTING_SITE=karavanovfi`
    - `WEEKLY_ANALYTICS_LOOKBACK_DAYS=7`
    - `HOSTING_ANALYTICS_MAX_LOG_ENTRIES=10000`

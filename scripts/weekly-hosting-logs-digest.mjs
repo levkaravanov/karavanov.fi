@@ -2,7 +2,7 @@
 import { createHash, createSign } from "node:crypto";
 import { readFile } from "node:fs/promises";
 
-const DEFAULT_PROJECT_ID = "karavanovfi-501610";
+const DEFAULT_PROJECT_ID = "karavanovfi";
 const DEFAULT_HOSTING_SITE = "karavanovfi";
 const DEFAULT_LOOKBACK_DAYS = 7;
 const DEFAULT_MAX_LOG_ENTRIES = 10000;

@@ -26,7 +26,7 @@ jobs:
       - name: Send hosting logs digest
         run: node scripts/weekly-hosting-logs-digest.mjs
         env:
-          GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID || 'karavanovfi-501610' }}
+          GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID || 'karavanovfi' }}
           FIREBASE_HOSTING_SITE: ${{ vars.FIREBASE_HOSTING_SITE || 'karavanovfi' }}
           GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
           GOOGLE_SERVICE_ACCOUNT_JSON_BASE64: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 }}

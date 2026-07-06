@@ -1,0 +1,35 @@
+name: Weekly hosting logs digest
+
+on:
+  schedule:
+    # Mondays at 06:00 UTC. This is 09:00 in Finland during summer time and 08:00 during winter time.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  send-digest:
+    name: Send weekly Slack digest
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Send hosting logs digest
+        run: node scripts/weekly-hosting-logs-digest.mjs
+        env:
+          GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID || 'karavanovfi' }}
+          FIREBASE_HOSTING_SITE: ${{ vars.FIREBASE_HOSTING_SITE || 'karavanovfi' }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          GOOGLE_SERVICE_ACCOUNT_JSON_BASE64: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 }}
+          HOSTING_ANALYTICS_MAX_LOG_ENTRIES: ${{ vars.HOSTING_ANALYTICS_MAX_LOG_ENTRIES || '10000' }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          WEEKLY_ANALYTICS_LOOKBACK_DAYS: ${{ vars.WEEKLY_ANALYTICS_LOOKBACK_DAYS || '7' }}

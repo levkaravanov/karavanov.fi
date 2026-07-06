@@ -603,20 +603,23 @@ Effects:
 
 ## 15. Analytics And Privacy
 
-Analytics are optional, but the site should be ready for privacy-friendly production analytics.
+Analytics are optional, but the site should support lightweight operational reporting.
 
 Current decision:
 
-- Use a privacy-aware analytics provider.
-- Prefer a cookieless setup to avoid adding a cookie banner.
-- Load analytics only in production and only when the provider token/config is present.
-- Document the provider, sitemap, Search Console, Bing Webmaster Tools, and cookie/consent decision in the repository.
+- Use Firebase Hosting web request logs exported to Cloud Logging.
+- Do not load a client-side analytics SDK.
+- Do not set analytics cookies.
+- Do not add a cookie/consent banner for analytics.
+- Use the logs only for aggregate operational reporting: site activity, page requests, countries, referrers, hostnames, and HTTP errors.
+- Document the provider, sitemap, Search Console, Bing Webmaster Tools, and privacy decision in the repository.
 
 Initial implementation:
 
-- Analytics is currently disabled while the site moves to a Firebase/GA4-based setup.
-- The future integration should not load in local development by default unless analytics testing is intentional.
-- If the analytics provider or settings start storing cookies or collecting personal data, add a visible cookie/consent flow before deployment.
+- Firebase Hosting Cloud Logging export is enabled for Hosting site `karavanovfi`.
+- A scheduled GitHub Actions workflow reads Cloud Logging weekly and sends aggregate counts to Slack.
+- The Slack digest must not print IP addresses or raw request identifiers.
+- If a future provider starts storing cookies or collecting personal data through client-side scripts, add a visible cookie/consent flow before deployment.
 
 ## 16. Deployment
 

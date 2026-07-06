@@ -58,7 +58,7 @@ Open [http://127.0.0.1:3000](http://127.0.0.1:3000).
 
 ## Environment
 
-No local environment variables are required right now. `.env.example` is kept as a placeholder for future integrations.
+The site itself does not require local environment variables. `.env.example` documents optional server-side reporting settings for the weekly Hosting logs digest.
 
 ```bash
 cp .env.example .env.local
@@ -70,6 +70,7 @@ cp .env.example .env.local
 pnpm lint
 pnpm build
 pnpm start
+pnpm weekly:hosting-logs
 ```
 
 ## Editing Content
@@ -125,7 +126,29 @@ Operational setup to keep outside the repo:
 4. Validate social previews after every major visual/metadata change.
 5. Review Search Console and analytics data after the first 7-14 days.
 
-Analytics is currently disabled while the site moves to a Firebase/GA4-based setup. Before enabling a new analytics provider, document the provider, environment variables, data collection behavior, and cookie/consent decision in this section.
+Analytics uses Firebase Hosting web request logs exported to Cloud Logging. There is no client-side analytics SDK, no analytics cookies, and no consent banner. The logs are used in aggregate to answer operational questions such as whether the site receives visits, which pages were requested, countries, referrers, hostnames, and HTTP errors.
+
+Weekly Slack reporting is implemented with:
+
+```txt
+.github/workflows/weekly-hosting-logs-digest.yml
+scripts/weekly-hosting-logs-digest.mjs
+```
+
+Required external setup:
+
+1. Firebase Console -> Hosting -> Usage -> Cloud Logging: export logs for Hosting site `karavanovfi`.
+2. Google Cloud service account with `roles/logging.viewer` on project `karavanovfi`.
+3. GitHub Secrets:
+   - `GOOGLE_SERVICE_ACCOUNT_JSON` or `GOOGLE_SERVICE_ACCOUNT_JSON_BASE64`
+   - `SLACK_WEBHOOK_URL`
+4. Optional GitHub Variables:
+   - `GCP_PROJECT_ID=karavanovfi`
+   - `FIREBASE_HOSTING_SITE=karavanovfi`
+   - `WEEKLY_ANALYTICS_LOOKBACK_DAYS=7`
+   - `HOSTING_ANALYTICS_MAX_LOG_ENTRIES=10000`
+
+The report reads only server-side request logs, filters out static assets, does not print IP addresses, and sends aggregate counts to Slack. Firebase says new Hosting request logs usually appear in Cloud Logging within about 30 minutes.
 
 ## Public Repository Notes
 

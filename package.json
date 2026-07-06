@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "weekly:hosting-logs": "node scripts/weekly-hosting-logs-digest.mjs --dry-run"
   },
   "dependencies": {
     "next": "16.2.9",

@@ -29,7 +29,6 @@ Live site: [karavanov.fi](https://karavanov.fi/)
 - Light, dark, and system theme modes
 - Language routes: `/en`, `/fi`, `/ru`
 - SEO metadata, `robots.txt`, `sitemap.xml`, Open Graph, and JSON-LD
-- Optional privacy-aware production analytics through Cloudflare Web Analytics
 - Local reusable design tokens
 - Mobile-first responsive layout
 - Local social icons and fonts
@@ -59,47 +58,11 @@ Open [http://127.0.0.1:3000](http://127.0.0.1:3000).
 
 ## Environment
 
-Copy `.env.example` if production analytics should be enabled:
+No local environment variables are required right now. `.env.example` is kept as a placeholder for future integrations.
 
 ```bash
 cp .env.example .env.local
 ```
-
-```txt
-NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN=
-```
-
-The analytics token is public by design. It is only used in production builds and should be left empty for local development unless analytics testing is intentional.
-
-## Weekly Analytics Digest
-
-The repository includes a scheduled GitHub Actions workflow that can send a weekly Cloudflare Web Analytics summary to Slack:
-
-```txt
-.github/workflows/weekly-analytics-digest.yml
-scripts/weekly-analytics-digest.mjs
-```
-
-The workflow runs every Monday and can also be started manually from GitHub Actions.
-
-Required GitHub Secrets:
-
-```txt
-CLOUDFLARE_API_TOKEN
-SLACK_WEBHOOK_URL
-```
-
-Recommended GitHub Variables:
-
-```txt
-CLOUDFLARE_ACCOUNT_ID=3db3cb9751c0edeb89e8106f287d0a31
-CLOUDFLARE_WEB_ANALYTICS_HOSTNAME=karavanov.fi
-WEEKLY_ANALYTICS_LOOKBACK_DAYS=7
-```
-
-Slack setup uses an Incoming Webhook URL from the target Slack workspace and channel. It does not depend on the Slack connector connected to Codex.
-
-The Cloudflare API token should be scoped narrowly for analytics reads. If Cloudflare changes Web Analytics GraphQL fields, the workflow will send a diagnostic Slack message instead of failing silently.
 
 ## Useful Scripts
 
@@ -162,9 +125,7 @@ Operational setup to keep outside the repo:
 4. Validate social previews after every major visual/metadata change.
 5. Review Search Console and analytics data after the first 7-14 days.
 
-Analytics is implemented as an optional Cloudflare Web Analytics integration. The code loads it only when `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` is present in a production build.
-
-Cookie/consent decision: the intended analytics setup is privacy-friendly and should avoid cookies. If the analytics provider or settings are changed to something that stores cookies or collects personal data, add a visible cookie/consent flow and update this section before deploying.
+Analytics is currently disabled while the site moves to a Firebase/GA4-based setup. Before enabling a new analytics provider, document the provider, environment variables, data collection behavior, and cookie/consent decision in this section.
 
 ## Public Repository Notes
 

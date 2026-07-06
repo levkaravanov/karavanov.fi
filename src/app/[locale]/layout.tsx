@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
-import { CloudflareAnalytics } from "@/components/analytics/CloudflareAnalytics";
 import { locales, type Locale } from "@/data/locales";
 import { profile } from "@/data/profile";
 import { normalizeLocale } from "@/lib/i18n/routing";
@@ -82,15 +81,10 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   const { locale: rawLocale } = await params;
   if (!locales.includes(rawLocale as Locale)) notFound();
   const locale = rawLocale as Locale;
-  const cloudflareAnalyticsToken =
-    process.env.NODE_ENV === "production" ? process.env.NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN : undefined;
 
   return (
     <html lang={locale} data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body>
-        {children}
-        <CloudflareAnalytics token={cloudflareAnalyticsToken} />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

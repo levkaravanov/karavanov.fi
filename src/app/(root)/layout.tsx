@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { CloudflareAnalytics } from "@/components/analytics/CloudflareAnalytics";
 import { defaultLocale } from "@/data/locales";
 import { profile } from "@/data/profile";
 import { languageAlternates, localeMetadata, openGraphImage, siteName, siteUrl } from "@/lib/site/seo";
@@ -65,15 +64,9 @@ export function generateMetadata(): Metadata {
 }
 
 export default function RootRedirectLayout({ children }: { children: ReactNode }) {
-  const cloudflareAnalyticsToken =
-    process.env.NODE_ENV === "production" ? process.env.NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN : undefined;
-
   return (
     <html lang={defaultLocale} data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body>
-        {children}
-        <CloudflareAnalytics token={cloudflareAnalyticsToken} />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

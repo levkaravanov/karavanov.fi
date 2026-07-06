@@ -614,8 +614,8 @@ Current decision:
 
 Initial implementation:
 
-- Cloudflare Web Analytics can be enabled with `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN`.
-- The integration should not load in local development by default.
+- Analytics is currently disabled while the site moves to a Firebase/GA4-based setup.
+- The future integration should not load in local development by default unless analytics testing is intentional.
 - If the analytics provider or settings start storing cookies or collecting personal data, add a visible cookie/consent flow before deployment.
 
 ## 16. Deployment
@@ -624,10 +624,9 @@ Good deployment options:
 
 - Vercel
 - Netlify
-- Cloudflare Pages
 - Firebase Hosting
 
-For Next.js, Vercel is the most direct path. If the site stays fully static, Netlify, Cloudflare Pages, or Firebase Hosting can also work, but static export compatibility should be verified separately after all Next.js features are chosen.
+For Next.js, Vercel is the most direct path. If the site stays fully static, Netlify or Firebase Hosting can also work, but static export compatibility should be verified separately after all Next.js features are chosen.
 
 ## 17. Public Repository Checklist
 

@@ -590,6 +590,10 @@ a {
   flex: 0 0 auto;
 }
 
+[data-theme="dark"] .timeline-company-logo-mono {
+  filter: invert(1);
+}
+
 .timeline-company-name {
   color: var(--text);
   font-size: 1rem;
@@ -646,23 +650,32 @@ a {
   line-height: 1.35;
 }
 
-.timeline-entry-heading-link {
-  display: flex;
+.text-external-link {
+  display: inline-flex;
   width: fit-content;
   align-items: center;
   gap: 0.28rem;
-  margin: 0.35rem 0 0;
   padding: 0;
   color: var(--text-muted);
   font-size: 0.86rem;
   font-weight: 700;
   line-height: 1.35;
   text-decoration: none;
-  text-underline-offset: 0.18em;
   transition: color 150ms ease;
+  white-space: nowrap;
 }
 
-.timeline-entry-heading-link-icon {
+.text-external-link span {
+  text-decoration-line: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
+.timeline-entry-heading-group .text-external-link {
+  margin-top: 0.35rem;
+}
+
+.text-external-link-icon {
   width: 0.85rem;
   height: 0.85rem;
   flex: 0 0 auto;
@@ -672,12 +685,11 @@ a {
   stroke-linejoin: round;
 }
 
-.timeline-entry-heading-link:hover {
+.text-external-link:hover {
   color: var(--accent-strong);
-  text-decoration: underline;
 }
 
-.timeline-entry-heading-link:focus-visible {
+.text-external-link:focus-visible {
   border-radius: 0.25rem;
   outline: 3px solid var(--accent);
   outline-offset: 3px;

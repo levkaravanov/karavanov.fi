@@ -6,8 +6,8 @@ import type { TimelineEntry } from "@/lib/content/timeline";
 import type { TimelineKind } from "@/data/timeline";
 import type { Locale } from "@/data/locales";
 import { dictionary } from "@/data/navigation";
-import { LinkPill } from "@/components/ui/LinkPill";
 import { TagList } from "@/components/ui/TagList";
+import { TextExternalLink } from "@/components/ui/TextExternalLink";
 
 type TimelineProps = {
   entries: TimelineEntry[];
@@ -59,7 +59,13 @@ const headingLinks: Record<string, Record<string, { href: string; label: string 
   },
 };
 
-const companyHeaderBySlug: Partial<Record<string, { alt: string; logoSrc: string; name: string }>> = {
+const companyHeaderBySlug: Partial<Record<string, { alt: string; logoSrc: string; logoTone?: "mono"; name: string }>> = {
+  "2026-dailyhero-chatgpt-app": {
+    alt: "OpenAI logo",
+    logoSrc: "/media/timeline/2026-dailyhero-chatgpt-app/openai-blossom.svg",
+    logoTone: "mono",
+    name: "ChatGPT apps",
+  },
   "2026-naistaxi-frontend": {
     alt: "Naistaxi",
     logoSrc: "/media/naistaxi/logo.svg",
@@ -272,7 +278,7 @@ export function Timeline({ entries, locale }: TimelineProps) {
                               <div className="timeline-company-header">
                                 <Image
                                   alt={companyHeader.alt}
-                                  className="timeline-company-logo"
+                                  className={`timeline-company-logo ${companyHeader.logoTone === "mono" ? "timeline-company-logo-mono" : ""}`}
                                   height={80}
                                   priority={expanded}
                                   src={companyHeader.logoSrc}
@@ -313,14 +319,7 @@ export function Timeline({ entries, locale }: TimelineProps) {
                                 <div className="timeline-entry-heading-group" key={`${entry.slug}-heading-${blockIndex}`}>
                                   <h4 className="timeline-entry-subheading">{block.text}</h4>
                                   {block.id && headingLinks[entry.slug]?.[block.id] ? (
-                                    <a className="timeline-entry-heading-link" href={headingLinks[entry.slug][block.id].href} rel="noreferrer" target="_blank">
-                                      <span>{headingLinks[entry.slug][block.id].label}</span>
-                                      <svg aria-hidden="true" className="timeline-entry-heading-link-icon" fill="none" stroke="currentColor" viewBox="0 0 16 16">
-                                        <path d="M6 4.5H4.75A2.25 2.25 0 0 0 2.5 6.75v4.5a2.25 2.25 0 0 0 2.25 2.25h4.5a2.25 2.25 0 0 0 2.25-2.25V10" />
-                                        <path d="M9 2.5h4.5V7" />
-                                        <path d="m8 8 5.25-5.25" />
-                                      </svg>
-                                    </a>
+                                    <TextExternalLink href={headingLinks[entry.slug][block.id].href}>{headingLinks[entry.slug][block.id].label}</TextExternalLink>
                                   ) : null}
                                 </div>
                               ) : (
@@ -330,9 +329,9 @@ export function Timeline({ entries, locale }: TimelineProps) {
                             {entry.links?.length ? (
                               <div className="timeline-entry-links">
                                 {entry.links.map((link) => (
-                                  <LinkPill href={link.href} key={link.href} rel="noreferrer" target="_blank" variant={link.type === "demo" ? "primary" : "quiet"}>
+                                  <TextExternalLink href={link.href} key={link.href}>
                                     {link.label}
-                                  </LinkPill>
+                                  </TextExternalLink>
                                 ))}
                               </div>
                             ) : null}

@@ -389,6 +389,7 @@ src/
       LinkPill.tsx
       SocialLinks.tsx
       TagList.tsx
+      TextExternalLink.tsx
       ThemeToggle.tsx
   data/
     locales.ts
@@ -575,7 +576,10 @@ UI primitives:
 
 - `LinkPill`
 - `TagList`
+- `TextExternalLink`
 - `ThemeToggle`
+
+External text links inside timeline content should use `TextExternalLink`: restrained text with a small external-link icon. Use this for project/app/resource links where a button-style CTA would feel too heavy.
 
 Effects:
 

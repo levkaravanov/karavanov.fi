@@ -29,6 +29,20 @@ export const timelineMeta = [
     featured: true,
   },
   {
+    slug: "2026-dailyhero-chatgpt-app",
+    year: 2026,
+    kind: "project",
+    tags: ["DailyHero", "ChatGPT", "Apps SDK", "MCP", "Connector", "AI workflows"],
+    featured: true,
+    links: [
+      {
+        label: "DailyHero in ChatGPT",
+        href: "https://chatgpt.com/apps/dailyhero/asdk_app_6a40dcfefd3c8191a2692b60bedada82",
+        type: "demo",
+      },
+    ],
+  },
+  {
     slug: "2026-naistaxi-frontend",
     year: 2026,
     kind: "practice",
